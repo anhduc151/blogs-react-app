@@ -1,20 +1,28 @@
 import React from "react";
 import "./global.css";
-import CreateBlog from "./components/blogs/create";
-import BlogListView from "./components/bloglist";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import BlogView from "./components/blogs/show";
-import BlogEdit from "./components/blogs/edit";
+import { publicRoutes } from './routes'
+
 
 function App() {
   return (
+    // <Router>
+    //   <Routes>
+    //     <Route exact path="/" element={<BlogListView />}></Route>
+    //     <Route exact path="/create" element={<CreateBlog />}></Route>
+    //     <Route exact path="/show/:id" element={<BlogView />}></Route>
+    //     <Route exact path="/edit/:id" element={<BlogEdit />}></Route>
+    //   </Routes>
+    // </Router>
     <Router>
-      <Routes>
-        <Route exact path="/" element={<BlogListView />}></Route>
-        <Route exact path="/create" element={<CreateBlog />}></Route>
-        <Route exact path="/show/:id" element={<BlogView />}></Route>
-        <Route exact path="/edit/:id" element={<BlogEdit />}></Route>
-      </Routes>
+      <div className="App">
+        <Routes>
+          {publicRoutes.map((route, index)=> {
+            const Page = route.component;
+            return <Route key={index} path={route.path} element={<Page />}></Route>
+          })}
+        </Routes>
+      </div>
     </Router>
   );
 }

@@ -19,7 +19,7 @@ const BlogView = () => {
     });
   return (
     <div>
-      <p>{blogs.Title}</p>
+      <p><i class='bx bxs-landscape' ></i>{blogs.Title}</p>
       <p>{blogs.Body}</p>
     </div>
   );
