@@ -1,8 +1,8 @@
+import React from "react";
 import plane from "../../../assets/images/plane.png";
 import homeright from "../../../assets/images/home_right_imgs.png";
 import "./home.css";
 import { Link } from "react-router-dom";
-import Theme from "../../theme";
 
 const Home = () => {
   return (
@@ -27,16 +27,7 @@ const Home = () => {
       <div className="home_right">
         <img src={homeright} alt="home right" className="home_right_imgs" />
       </div>
-      <Theme />
-
-      <div className="theme">
-    <label className="switch">
-      <input type="checkbox" />
-      <span class="slider"></span>
-    </label>
-  </div>;
     </div>
-
   );
 };
 

@@ -6,10 +6,34 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Poppins;
-  /* background-color: #f4ece1; */
-  background-color: #000;
+:root {
+  --body_background_light: white;
+  --body_color_light: #000;
+  --link_color_light: navy;
+
+  --body_background_dark: #282c34;
+  --body_color_dark: white;
+  --link_color_dark: cyan;
 }
 
+[data-theme="dark"] {
+  --body_background: var(--body_background_dark);
+  --body_color: var(--body_color_dark);
+  --link_color: var(--link_color_dark);
+}
 
+[data-theme="light"] {
+  --body_background: var(--body_background_light);
+  --body_color: var(--body_color_light);
+  --link_color: var(--link_color_light);
+}
+
+body {
+  font-family: Poppins;
+  background-color: var(--body_background);
+  color: var(--body_color);
+}
+
+a {
+  color: var(--link_color);
+}
