@@ -26,7 +26,7 @@
 
 .home_left_h2 {
   /* color: #2f2f2f; */
-  color: #fff;
+  color: var(--body_color);
   font-family: Poppins;
   font-size: 52px;
   font-weight: 700;
@@ -56,6 +56,7 @@
   font-size: 19px;
   border-radius: 20px;
   border: none;
+  box-shadow: var(--button_shadow);
 }
 
 .home_left_button:hover {
@@ -76,6 +77,4 @@
     display: none;
   }
 }
-
-
 

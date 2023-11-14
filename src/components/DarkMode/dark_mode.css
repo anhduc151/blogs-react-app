@@ -1,6 +1,7 @@
 /* css DarkMode */
 .dark_mode {
   position: absolute;
+  position: fixed;
   bottom: 2%;
   right: 2%;
 }
