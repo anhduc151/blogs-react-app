@@ -1,0 +1,106 @@
+/* css sign_in */
+.sign_in {
+  display: flex;
+  padding: 0 5%;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--background_signin);
+}
+
+.sign_in_form {
+  width: 450px;
+  padding: 20px 40px;
+  border: 2px solid #ffffff;
+  border-radius: 35px;
+  background: rgba(49, 4, 4, 0.15);
+  box-shadow: var(--button_shadow);
+  backdrop-filter: blur(12.5px);
+}
+
+.sign_in_logo {
+  position: absolute;
+  font-family: Titan One, cursive;
+  color: var(--body_color);
+  top: 2%;
+  left: 2%;
+  font-size: 30px;
+}
+
+.sign_in_signin {
+  text-align: center;
+  background: linear-gradient(45deg, #9055ff, #13e2da);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sign_in_form_p {
+  display: flex;
+  align-items: center;
+  color: var(--body_color);
+}
+
+.sign_in_form_span {
+  color: rgb(218, 53, 53);
+  padding-right: 6px;
+}
+
+.sign_in_form_input {
+  width: 100%;
+  padding: 10px 5px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.sign_in_form_button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #000;
+  font-weight: 700;
+  border: none;
+}
+
+.sign_in_form_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+
+.sign_in_form_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0 10px;
+}
+
+.sign_in_form_register {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign_in_form_register_p {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* css home_blog_list */
+.home_blog_list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media screen and (max-width: 768px) {
+  .sign_in_form {
+    width: 100%;
+    padding: 15px 12px;
+  }
+
+  .sign_in_form_input {
+    margin-bottom: 10px;
+  }
+}
