@@ -1,10 +1,14 @@
-import fb from "../../firebase";
+// Import the specific named exports from the firebase file
+import { app } from "../../firebase";
 import React, { useState } from "react";
-import { message } from "antd"; // Import message from antd
+import { message } from "antd";
 
-const DB = fb.firestore();
+// Access the firestore method from the initialized app
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-const Blogslist = DB.collection("blogs");
+const DB = getFirestore(app);
+
+const Blogslist = collection(DB, "blogs");
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -12,12 +16,12 @@ const CreateBlog = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    Blogslist.add({
+    addDoc(Blogslist, {
       Title: title,
       Body: body,
     })
       .then((docRef) => {
-        message.success("Data successfully submitted"); // Show success message
+        message.success("Data successfully submitted");
       })
       .catch((error) => {
         console.log("error:", error);

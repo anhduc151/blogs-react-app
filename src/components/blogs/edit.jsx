@@ -1,11 +1,12 @@
 import { message } from "antd";
-import fb from "../../firebase";
+import { app } from "../../firebase";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getFirestore, doc, getDoc, updateDoc, collection } from "firebase/firestore";
 
-const DB = fb.firestore();
+const DB = getFirestore(app);
 
-const Blogslist = DB.collection("blogs");
+const Blogslist = collection(DB, "blogs"); // Use 'collection' instead of 'DB.collection'
 
 const BlogEdit = () => {
   const { id } = useParams();
@@ -13,29 +14,34 @@ const BlogEdit = () => {
   const [body, setBody] = useState("");
 
   useEffect(() => {
-    Blogslist.doc(id)
-      .get()
-      .then((snapshot) => {
+    const fetchData = async () => {
+      try {
+        const docRef = doc(Blogslist, id);
+        const snapshot = await getDoc(docRef);
         const data = snapshot.data();
         setTitle(data.Title);
         setBody(data.Body);
-      });
+      } catch (error) {
+        console.error("Error fetching document:", error);
+      }
+    };
+
+    fetchData();
   }, [id]);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    Blogslist.doc(id).update({
-      Title: title,
-      Body: body,
-    })
-      .then((docRef) => {
-        message.success("Data successfully submitted"); // Show success message
-      })
-      .catch((error) => {
-        console.log("error:", error);
+    try {
+      const docRef = doc(Blogslist, id);
+      await updateDoc(docRef, {
+        Title: title,
+        Body: body,
       });
+      message.success("Data successfully submitted");
+    } catch (error) {
+      console.error("Error updating document:", error);
+    }
   };
-
 
   return (
     <div>

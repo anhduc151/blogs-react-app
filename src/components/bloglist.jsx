@@ -1,17 +1,22 @@
-import fb from "../firebase";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { message } from "antd";
+import { app } from "../firebase";
+import { doc } from "firebase/firestore";
 
-const DB = fb.firestore();
 
-const Blogslist = DB.collection("blogs");
+import { getFirestore, collection, onSnapshot, deleteDoc } from "firebase/firestore";
+
+const DB = getFirestore(app);
+
+const Blogslist = collection(DB, "blogs"); // Use 'collection' directly
 
 const BlogListView = () => {
   const [blogs, setBlogs] = useState([]);
+
   useEffect(() => {
     // Subscribe to query with onSnapshot
-    const unsubscribe = Blogslist.limit(100).onSnapshot((querySnapshot) => {
+    const unsubscribe = onSnapshot(Blogslist, (querySnapshot) => {
       // Get all documents from collection - with IDs
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
@@ -22,17 +27,18 @@ const BlogListView = () => {
     });
 
     // Detach listener
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
-  const DeleteBlog = (id) => {
-    Blogslist.doc(id).delete().then(() => {
-      message.success("Blog deleted successfully!")
-      // alert("Document successfully deleted!");
-  }).catch((error) => {
+  const deleteBlog = async (id) => {
+    try {
+      const docRef = doc(Blogslist, id); // Get a reference to the document
+      await deleteDoc(docRef);
+      message.success("Blog deleted successfully!");
+    } catch (error) {
       console.error("Error removing document: ", error);
-  });
-  }
+    }
+  };
 
   return (
     <div>
@@ -44,7 +50,7 @@ const BlogListView = () => {
           <Link to={`/edit/${data.id}`}>Edit</Link>
           <button
             onClick={() => {
-              DeleteBlog(data.id);
+              deleteBlog(data.id);
             }}
           >
             Delete
