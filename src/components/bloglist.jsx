@@ -44,7 +44,7 @@ const BlogListView = () => {
         <div key={data.id}>
           <p className="title">Title: {data.Title}</p>
           <p className="body">Body: {data.Body}</p>
-          <Link to={`/detail-jobs/${data.id}`}>View</Link>
+          <Link to={`/detail-blog/${data.id}`}>View</Link>
           <Link to={`/edit/${data.id}`}>Edit</Link>
           <button
             onClick={() => {

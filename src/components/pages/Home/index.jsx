@@ -7,6 +7,7 @@ import blogsview from "../../../assets/images/blogs_view.jpg";
 import { app } from "../../../firebase";
 // import { doc } from "firebase/firestore";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+// import { Helmet } from 'react-helmet';
 
 const DB = getFirestore(app);
 
@@ -14,6 +15,10 @@ const Blogslist = collection(DB, "blogs"); // Use 'collection' directly
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    document.title = "Slurp";
+  }, []);
 
   useEffect(() => {
     // Subscribe to query with onSnapshot
@@ -30,6 +35,7 @@ const Home = () => {
     // Detach listener
     return () => unsubscribe();
   }, []);
+  
 
   return (
     <>
@@ -61,7 +67,7 @@ const Home = () => {
 
         <div className="home_blog_list">
           {blogs.map((data) => (
-            <Link to={`/detail-jobs/${data.id}`}>
+            <Link to={`/detail-blog/${data.id}`}>
               <div key={data.id} className="home_blog_list_box">
                 <div className="home_blog_list_box_top1">
                   <img

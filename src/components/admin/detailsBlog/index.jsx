@@ -11,6 +11,10 @@ const BlogView = () => {
   const [blog, setBlog] = useState({});
 
   useEffect(() => {
+    document.title = 'Details Blog - Slurp';
+  }, []);
+
+  useEffect(() => {
     const fetchBlog = async () => {
       try {
         const blogDoc = doc(Blogslist, id);

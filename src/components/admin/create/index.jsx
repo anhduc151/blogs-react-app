@@ -1,6 +1,6 @@
 // Import the specific named exports from the firebase file
 import { app } from "../../../firebase";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { message } from "antd";
 
 // Access the firestore method from the initialized app
@@ -13,6 +13,11 @@ const Blogslist = collection(DB, "blogs");
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
+  useEffect(() => {
+    // set title
+    document.title = "Create Blog - Slurp";
+  }, []);
 
   const submit = (e) => {
     e.preventDefault();

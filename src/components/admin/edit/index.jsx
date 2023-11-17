@@ -14,6 +14,10 @@ const BlogEdit = () => {
   const [body, setBody] = useState("");
 
   useEffect(() => {
+    document.title = "Edit Blog - Slurp";
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const docRef = doc(Blogslist, id);
