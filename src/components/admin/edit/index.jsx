@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { app } from "../../firebase";
+import { app } from "../../../firebase";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getFirestore, doc, getDoc, updateDoc, collection } from "firebase/firestore";

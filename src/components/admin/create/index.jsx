@@ -1,5 +1,5 @@
 // Import the specific named exports from the firebase file
-import { app } from "../../firebase";
+import { app } from "../../../firebase";
 import React, { useState } from "react";
 import { message } from "antd";
 

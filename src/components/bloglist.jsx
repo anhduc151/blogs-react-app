@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import { message } from "antd";
 import { app } from "../firebase";
 import { doc } from "firebase/firestore";
-
-
 import { getFirestore, collection, onSnapshot, deleteDoc } from "firebase/firestore";
 
 const DB = getFirestore(app);
@@ -46,7 +44,7 @@ const BlogListView = () => {
         <div key={data.id}>
           <p className="title">Title: {data.Title}</p>
           <p className="body">Body: {data.Body}</p>
-          <Link to={`/show/${data.id}`}>View</Link>
+          <Link to={`/detail-jobs/${data.id}`}>View</Link>
           <Link to={`/edit/${data.id}`}>Edit</Link>
           <button
             onClick={() => {

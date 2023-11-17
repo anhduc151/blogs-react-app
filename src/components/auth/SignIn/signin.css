@@ -88,12 +88,6 @@
   margin-right: 10px;
 }
 
-/* css home_blog_list */
-.home_blog_list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
 @media screen and (max-width: 768px) {
   .sign_in_form {
     width: 100%;

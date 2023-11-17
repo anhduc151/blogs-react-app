@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Poppins:wght@400;500;700&family=Titan+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Poppins:wght@400;500;700&family=Roboto:wght@400;700&family=Titan+One&display=swap");
 
 * {
   margin: 0;
@@ -12,12 +12,15 @@
   --link_color_light: navy;
   --body_shadow_light: 0px 20px 32px -8px rgba(0, 0, 0, 0.2);
   --background_gradient_light: linear-gradient(to right, #71afe5, #e9dede);
+  --box_border_light: 1px solid #b6acac;
 
   --body_background_dark: #000000;
   --body_color_dark: white;
   --link_color_dark: cyan;
   --body_shadow_dark: 0px 20px 32px -8px rgba(255, 255, 255, 0.821);
   --background_gradient_dark: linear-gradient(45deg, #000000, #434747);
+  --box_border_dark: 1px solid #545252;
+
 }
 
 [data-theme="dark"] {
@@ -26,6 +29,7 @@
   --link_color: var(--link_color_dark);
   --button_shadow: var(--body_shadow_dark);
   --background_signin: var(--background_gradient_dark);
+  --box_border: var(--box_border_dark);
 }
 
 [data-theme="light"] {
@@ -34,6 +38,7 @@
   --link_color: var(--link_color_light);
   --button_shadow: var(--body_shadow_light);
   --background_signin: var(--background_gradient_light);
+  --box_border: var(--box_border_light);
 }
 
 body {
@@ -44,4 +49,5 @@ body {
 
 a {
   color: var(--link_color);
+  text-decoration: none !important;
 }
