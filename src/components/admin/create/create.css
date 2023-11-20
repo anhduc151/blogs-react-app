@@ -1,0 +1,10 @@
+/* css create */
+.create {
+  padding: 100px 10%;
+}
+
+.create_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

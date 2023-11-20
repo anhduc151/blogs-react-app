@@ -1,4 +1,5 @@
 import { app } from "../../../firebase";
+import "./detail-blog.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
@@ -11,7 +12,7 @@ const BlogView = () => {
   const [blog, setBlog] = useState({});
 
   useEffect(() => {
-    document.title = 'Details Blog - Slurp';
+    document.title = "Details Blog - Slurp";
   }, []);
 
   useEffect(() => {
@@ -34,10 +35,10 @@ const BlogView = () => {
 
   return (
     <div>
-      <p>
-        <i className="bx bxs-landscape"></i> {blog.Title}
-      </p>
-      <p>{blog.Body}</p>
+      <div className="details">
+        <h1 className="details_h1">{blog.Title}</h1>
+        <p className="details_p">{blog.Body}</p>
+      </div>
     </div>
   );
 };

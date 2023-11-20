@@ -42,7 +42,7 @@
 }
 
 body {
-  font-family: Poppins;
+  font-family: "Roboto";
   background-color: var(--body_background);
   color: var(--body_color);
 }

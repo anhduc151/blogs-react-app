@@ -5,13 +5,10 @@ import "./home.css";
 import { Link } from "react-router-dom";
 import blogsview from "../../../assets/images/blogs_view.jpg";
 import { app } from "../../../firebase";
-// import { doc } from "firebase/firestore";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
-// import { Helmet } from 'react-helmet';
 
 const DB = getFirestore(app);
-
-const Blogslist = collection(DB, "blogs"); // Use 'collection' directly
+const Blogslist = collection(DB, "blogs");
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -21,21 +18,16 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // Subscribe to query with onSnapshot
     const unsubscribe = onSnapshot(Blogslist, (querySnapshot) => {
-      // Get all documents from collection - with IDs
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      // Update state
       setBlogs(data);
     });
 
-    // Detach listener
     return () => unsubscribe();
   }, []);
-  
 
   return (
     <>
@@ -67,14 +59,16 @@ const Home = () => {
 
         <div className="home_blog_list">
           {blogs.map((data) => (
-            <Link to={`/detail-blog/${data.id}`}>
-              <div key={data.id} className="home_blog_list_box">
+            <Link to={`/detail-blog/${data.id}`} key={data.id}>
+              <div className="home_blog_list_box" key={data.id}>
                 <div className="home_blog_list_box_top1">
-                  <img
-                    src={blogsview}
-                    alt="blog"
-                    className="home_blog_list_box_top1_imgs"
-                  />
+                  {data.ImageUrl && ( // Hiển thị ảnh nếu có
+                    <img
+                      src={data.ImageUrl}
+                      alt="blog"
+                      className="home_blog_list_box_top1_imgs"
+                    />
+                  )}
                 </div>
 
                 <div className="home_blog_list_box_bottom">

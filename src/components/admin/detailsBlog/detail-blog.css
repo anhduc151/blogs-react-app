@@ -1,0 +1,22 @@
+/* css details */
+.details {
+  padding: 100px 20%;
+}
+
+.details_h1 {
+  font-size: 30px;
+  text-align: center;
+  font-family: "Roboto";
+}
+
+.details_p {
+  font-size: 20px;
+  font-family: "Roboto";
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .details {
+    padding: 100px 9%;
+  }
+}
