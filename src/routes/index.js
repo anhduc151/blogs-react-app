@@ -14,6 +14,7 @@ const publicRoutes = [
   { path: "/blog-list", component: BlogListView },
   { path: "/sign-in", component: SignIn },
   { path: "/sign-up", component: SignUp },
+  { path: "/sign-up", component: SignUp },
 ];
 
 const privateRoutes = [];

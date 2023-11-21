@@ -1,0 +1,86 @@
+/* Navbar.css */
+.nav {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  padding: 0 50px;
+  justify-content: space-between;
+  background-color: #333;
+  color: white;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+}
+
+.nav_icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav_logo {
+  font-size: 1.5rem;
+}
+
+.nav_icon {
+  display: none;
+}
+
+.nav_links {
+  display: flex;
+  list-style: none;
+}
+
+.nav_links .nav_links_li {
+  margin: 16px 5px;
+  padding: 14px 12px;
+}
+
+.nav_links_li:hover {
+  cursor: pointer;
+}
+
+.nav_links-open {
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.nav_links_li.active a {
+    color: red;
+  }
+
+@media screen and (max-width: 768px) {
+  .nav {
+    padding: 0 20px;
+  }
+  .nav_links {
+    display: none;
+  }
+
+  .nav_links_open {
+    display: flex;
+    width: 100%;
+    background-color: #333;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+  }
+
+  .nav_icon {
+    display: block;
+  }
+
+  .nav_icons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav_links_li {
+    text-align: center;
+  }
+}

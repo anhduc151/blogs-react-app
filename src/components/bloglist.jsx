@@ -4,6 +4,7 @@ import { message } from "antd";
 import { app } from "../firebase";
 import { doc } from "firebase/firestore";
 import { getFirestore, collection, onSnapshot, deleteDoc } from "firebase/firestore";
+import Navbar from "./navbar";
 
 const DB = getFirestore(app);
 
@@ -40,6 +41,7 @@ const BlogListView = () => {
 
   return (
     <div>
+      <Navbar />
       {blogs.map((data) => (
         <div key={data.id}>
           <p className="title">Title: {data.Title}</p>

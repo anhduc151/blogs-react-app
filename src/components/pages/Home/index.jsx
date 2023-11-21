@@ -3,9 +3,10 @@ import plane from "../../../assets/images/plane.png";
 import homeright from "../../../assets/images/home_right_imgs.png";
 import "./home.css";
 import { Link } from "react-router-dom";
-import blogsview from "../../../assets/images/blogs_view.jpg";
 import { app } from "../../../firebase";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+import Navbar from "../../navbar";
+import Footer from "../../footer";
 
 const DB = getFirestore(app);
 const Blogslist = collection(DB, "blogs");
@@ -31,6 +32,7 @@ const Home = () => {
 
   return (
     <>
+      <Navbar />
       <div className="home">
         <div className="home_left">
           <div className="home_leftt_box_h1">
@@ -59,8 +61,12 @@ const Home = () => {
 
         <div className="home_blog_list">
           {blogs.map((data) => (
-            <Link to={`/detail-blog/${data.id}`} key={data.id}>
-              <div className="home_blog_list_box" key={data.id}>
+            <Link
+              key={data.id}
+              to={`/detail-blog/${data.id}`}
+              className="home_blog_list_link"
+            >
+              <div className="home_blog_list_box">
                 <div className="home_blog_list_box_top1">
                   {data.ImageUrl && ( // Hiển thị ảnh nếu có
                     <img
@@ -84,6 +90,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

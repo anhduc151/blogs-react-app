@@ -6,6 +6,8 @@ import { storage } from "../../../firebase";
 import "./create.css";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
+import Navbar from "../../navbar";
+import Footer from "../../footer";
 
 const DB = getFirestore(app);
 const Blogslist = collection(DB, "blogs");
@@ -16,7 +18,12 @@ const CreateBlog = () => {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
-  const imageListRef = ref(storage, "images/");
+  // const imageListRef = ref(storage, "images/");
+
+  const deleteImage = () => {
+    setImageUpload(null);
+    setImageUrl(null);
+  };
 
   const uploadImage = async () => {
     if (imageUpload == null) {
@@ -82,59 +89,70 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="create">
-      <form
-        className="create_form"
-        onSubmit={(event) => {
-          submit(event);
-        }}
-      >
-        {!imageUrl ? ( // Nếu có ảnh, hiển thị nút upload
-          <>
-            <input
-              type="file"
-              onChange={(event) => {
-                setImageUpload(event.target.files[0]);
-              }}
-            />
-            <button type="button" onClick={uploadImage}>
-              Upload Image
-            </button>
-          </>
-        ) : (
-          <img
-            src={imageUrl}
-            alt="uploaded"
-            className="create_uploaded_image"
+    <>
+      <Navbar />
+      <div className="create">
+        <form
+          className="create_form"
+          onSubmit={(event) => {
+            submit(event);
+          }}
+        >
+          {!imageUrl ? (
+            <>
+              <input
+                type="file"
+                onChange={(event) => {
+                  setImageUpload(event.target.files[0]);
+                }}
+              />
+              <button type="button" onClick={uploadImage}>
+                Upload Image
+              </button>
+            </>
+          ) : (
+            <div className="image-preview">
+              <img
+                src={imageUrl}
+                alt="uploaded"
+                className="create_uploaded_image"
+              />
+              <div className="image-actions">
+                <button type="button" onClick={deleteImage}>
+                  Delete
+                </button>
+              </div>
+            </div>
+          )}
+
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            required
           />
-        )}
 
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          required
-        />
+          <textarea
+            name="content"
+            type="text"
+            placeholder="Write your content here"
+            rows="10"
+            cols="150"
+            value={body}
+            onChange={(e) => {
+              setBody(e.target.value);
+            }}
+            required
+          ></textarea>
 
-        <textarea
-          name="content"
-          type="text"
-          placeholder="Write your content here"
-          rows="10"
-          cols="150"
-          value={body}
-          onChange={(e) => {
-            setBody(e.target.value);
-          }}
-          required
-        ></textarea>
-
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <Footer />
+    </>
   );
 };
 
