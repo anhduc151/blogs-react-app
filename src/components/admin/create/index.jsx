@@ -1,5 +1,5 @@
 import { app } from "../../../firebase";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { message } from "antd";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { storage } from "../../../firebase";
@@ -87,6 +87,10 @@ const CreateBlog = () => {
       message.error("Error creating blog. Please try again.");
     }
   };
+
+  useEffect(() => {
+    document.title = "Create Blog - Slurp";
+  }, []);
 
   return (
     <>

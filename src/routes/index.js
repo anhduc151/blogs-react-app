@@ -1,10 +1,11 @@
 import Home from "../components/pages/Home";
 import CreateBlog from "../components/admin/create";
-import BlogListView from "../components/bloglist";
+import BlogListView from "../components/admin/blogList/index";
 import BlogView from "../components/admin/detailsBlog";
 import BlogEdit from "../components/admin/edit";
 import SignIn from "../components/auth/SignIn";
 import SignUp from "../components/auth/SignUp";
+import Contact from "../components/pages/contact/index";
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -14,7 +15,7 @@ const publicRoutes = [
   { path: "/blog-list", component: BlogListView },
   { path: "/sign-in", component: SignIn },
   { path: "/sign-up", component: SignUp },
-  { path: "/sign-up", component: SignUp },
+  { path: "/contact", component: Contact },
 ];
 
 const privateRoutes = [];

@@ -56,35 +56,25 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="home_foot_blog">
-        <h2 className="home_foot_blog_title">All Blogs</h2>
+      {/* Home Foot */}
+      <div className="home_foot_pad">
+        <h2 className="home_foot_pad_h2">Most Viewed</h2>
 
-        <div className="home_blog_list">
+        <div className="home_grid">
           {blogs.map((data) => (
             <Link
-              key={data.id}
               to={`/detail-blog/${data.id}`}
-              className="home_blog_list_link"
+              key={data.id}
+              className="grid_box"
             >
-              <div className="home_blog_list_box">
-                <div className="home_blog_list_box_top1">
-                  {data.ImageUrl && ( // Hiển thị ảnh nếu có
-                    <img
-                      src={data.ImageUrl}
-                      alt="blog"
-                      className="home_blog_list_box_top1_imgs"
-                    />
-                  )}
-                </div>
-
-                <div className="home_blog_list_box_bottom">
-                  <p className="home_blog_list_box_bottom_title">
-                    {data.Title}
-                  </p>
-                  <p className="home_blog_list_box_bottom_description">
-                    {data.Body}
-                  </p>
-                </div>
+              <div className="grid_box_top">
+                {data.ImageUrl && (
+                  <img src={data.ImageUrl} alt="blog" className="grid_imgs" />
+                )}
+              </div>
+              <div className="grid_box_foot">
+                <p className="grid_box_foot_titles">{data.Title}</p>
+                <p className="grid_box_foot_description">{data.Body}</p>
               </div>
             </Link>
           ))}

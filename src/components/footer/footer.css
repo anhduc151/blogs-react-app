@@ -21,6 +21,11 @@
   font-size: 28px;
 }
 
+.footer_one_link {
+  color: var(--body_color);
+  font-weight: bold;
+}
+
 .footer_one_p {
   font-size: 16px;
 }

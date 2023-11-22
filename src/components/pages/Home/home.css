@@ -72,82 +72,64 @@
   object-fit: cover;
 }
 
-.home_blog_list {
+/* css home_grid */
+.home_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 46px;
 }
 
-.home_blog_list_link {
-  text-decoration: none;
-  color: inherit;
-  max-height: 350px;
+.home_foot_pad_h2 {
+  margin-bottom: 10px;
+}
+
+.home_foot_pad {
+  padding: 100px 10%;
+}
+
+.grid_box {
   width: 100%;
-}
-
-.home_blog_list_box {
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 10px;
+  height: 100%;
+  border: var(--box_border);
   overflow: hidden;
-  width: 100%;
-  max-height: 350px;
 }
 
-.home_blog_list_box_top1 {
-  position: relative;
+.grid_box_top {
+  width: 100%;
+  height: 200px;
   overflow: hidden;
-  max-height: 200px; /* Điều chỉnh chiều cao ảnh */
 }
 
-.home_blog_list_box_top1_imgs {
+.grid_imgs {
   width: 100%;
-  height: auto; /* Đảm bảo chiều cao tự động điều chỉnh theo tỷ lệ */
+  height: 100%;
   object-fit: cover;
-  object-position: center;
-  max-width: 100%; /* Ảnh không vượt quá kích thước của cha */
 }
 
-.home_blog_list_box_bottom {
-  padding: 15px;
+/* css grid_box_foot */
+.grid_box_foot {
+  padding: 1rem;
 }
 
-.home_blog_list_box_bottom_title {
-  font-size: 1.2em;
+.grid_box_foot_titles {
+  font-size: 20px;
+  color: var(--body_color);
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.home_blog_list_box_bottom_description {
-  font-size: 1em;
-  color: #555;
-}
-
-.home_foot_blog {
-  padding: 50px 5%;
-}
-
-@media screen and (max-width: 1300px) {
-  .home_right_imgs {
-    display: none;
-  }
+.grid_box_foot_description {
+  font-size: 14px;
+  color: var(--body_color);
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Số dòng tối đa */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 768px) {
-  /* .home_blog_list {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 20px;
-  } */
-
-  .home_blog_list {
-    grid-template-columns: 1fr;
-    padding: 0 3%; /* Thêm padding ở cả hai bên khi màn hình nhỏ hơn 768px */
-  }
-
-  .home_foot_blog {
-    padding: 10px 5%;
-  }
-
   .home_left_h1 {
     font-size: 80px;
     margin-bottom: 16px;
@@ -163,5 +145,21 @@
     object-fit: cover;
     position: relative;
     top: -20px;
+  }
+
+  .home_grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 10px;
+  }
+
+  .home_foot_pad {
+    padding: 10px 5% 20px;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .home_right_imgs {
+    display: none;
   }
 }
