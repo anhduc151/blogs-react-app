@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { Input, message } from "antd";
 import { app } from "../../../firebase";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,8 @@ import {
   collection,
 } from "firebase/firestore";
 import "./edit.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const DB = getFirestore(app);
 
@@ -19,6 +21,29 @@ const BlogEdit = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
+
+  var toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+  
+    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+    [{ 'direction': 'rtl' }],                         // text direction
+  
+    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'font': [] }],
+    [{ 'align': [] }],
+  
+    ['clean']                                         // remove formatting button
+  ];
+
+
 
   useEffect(() => {
     document.title = "Edit Blog - Slurp";
@@ -40,6 +65,10 @@ const BlogEdit = () => {
     fetchData();
   }, [id]);
 
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     try {
@@ -55,14 +84,14 @@ const BlogEdit = () => {
   };
 
   return (
-    <div>
+    <div className="edit">
       <form
         onSubmit={(event) => {
           submit(event);
         }}
       >
         <label>Title</label>
-        <input
+        {/* <input
           type="text"
           placeholder="Title"
           onChange={(e) => {
@@ -70,9 +99,9 @@ const BlogEdit = () => {
           }}
           required
           value={title}
-        />
+        /> */}
 
-        <textarea
+        {/* <textarea
           name="content"
           type="text"
           placeholder="Write your content here"
@@ -83,8 +112,22 @@ const BlogEdit = () => {
           }}
           required
           value={body}
-        ></textarea>
+        ></textarea> */}
+        <Input
+          type="text"
+          placeholder="Title"
+          onChange={handleTitleChange}
+          required
+          value={title}
+        />
 
+        <ReactQuill
+          theme="snow"
+          value={body}
+          onChange={(value) => {
+            setBody(value);
+          }}
+        />
         <button type="submit">Submit</button>
       </form>
     </div>
