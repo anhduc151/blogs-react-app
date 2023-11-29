@@ -20,7 +20,6 @@
   --body_shadow_dark: 0px 20px 32px -8px rgba(255, 255, 255, 0.821);
   --background_gradient_dark: linear-gradient(45deg, #000000, #434747);
   --box_border_dark: 1px solid #545252;
-
 }
 
 [data-theme="dark"] {
@@ -50,4 +49,17 @@ body {
 a {
   color: var(--link_color);
   text-decoration: none !important;
+}
+
+.ant-pagination-item a {
+  color: rgb(0, 110, 255) !important;
+}
+
+.ant-pagination-item-ellipsis {
+  color: rgb(0, 136, 255) !important;
+}
+
+.anticon-right,
+.anticon-left {
+  color: rgb(0, 110, 255) !important;
 }

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Input, message } from "antd";
+import { Input, message, Pagination } from "antd";
 import { app } from "../../../firebase";
 import { doc } from "firebase/firestore";
 import {
@@ -20,6 +20,9 @@ const Blogslist = collection(DB, "blogs"); // Use 'collection' directly
 const BlogListView = () => {
   const [blogs, setBlogs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const pageSize = 3;
 
   useEffect(() => {
     // Subscribe to query with onSnapshot
@@ -44,6 +47,7 @@ const BlogListView = () => {
   }, [searchValue]);
 
   const handleSearch = (e) => {
+    setCurrentPage(1);
     setSearchValue(e.target.value);
   };
 
@@ -56,6 +60,14 @@ const BlogListView = () => {
       console.error("Error removing document: ", error);
     }
   };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const displayedBlogs = blogs.slice(startIndex, endIndex);
 
   useEffect(() => {
     document.title = "Blog List - Slurp";
@@ -71,7 +83,7 @@ const BlogListView = () => {
           value={searchValue}
           onChange={handleSearch}
         />
-        {blogs.map((data) => (
+        {displayedBlogs.map((data) => (
           <div key={data.id} className="blog_list_key">
             <p className="blog_list_title">
               Title: <span>{data.Title}</span>
@@ -97,6 +109,15 @@ const BlogListView = () => {
             </div>
           </div>
         ))}
+        <div className="panigation">
+          <Pagination
+            defaultCurrent={1}
+            current={currentPage}
+            pageSize={pageSize}
+            total={blogs.length}
+            onChange={handlePageChange}
+          />
+        </div>
       </div>
       <Footer />
     </div>

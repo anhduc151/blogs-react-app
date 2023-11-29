@@ -2,6 +2,7 @@
 .blog_list {
   padding: 70px 20%;
   min-height: 100vh;
+  position: relative;
 }
 
 .blog_list_key {
@@ -77,6 +78,16 @@
   margin-bottom: 20px;
 }
 
+.panigation {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  bottom: 2%;
+  left: 39%;
+  right: 39%;
+}
+
 @media screen and (max-width: 768px) {
   .blog_list_button_edit {
     display: flex;
@@ -100,5 +111,9 @@
 
   .blog_list {
     padding: 80px 5%;
+  }
+
+  .panigation {
+    position: static;
   }
 }
