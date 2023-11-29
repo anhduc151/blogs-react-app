@@ -1,6 +1,7 @@
 /* css blog_list */
 .blog_list {
   padding: 70px 20%;
+  min-height: 100vh;
 }
 
 .blog_list_key {
@@ -70,6 +71,10 @@
 
 .blog_list_title span {
   color: var(--body_color);
+}
+
+.input_search {
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 768px) {

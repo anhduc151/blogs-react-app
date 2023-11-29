@@ -8,7 +8,9 @@ const Footer = () => {
       <div className="footer">
         <div className="footer_one">
           <p className="footer_one_logo">
-            <Link to="/" className="footer_one_link">Slurp</Link>
+            <Link to="/" className="footer_one_link">
+              Slurp
+            </Link>
           </p>
           <p className="footer_one_p">
             Quality is the inspiration for every meal
@@ -34,9 +36,18 @@ const Footer = () => {
         <div className="footer_four">
           <h4 className="footer_h4">Follow Us</h4>
           <div className="footer_icons">
-            <i className="bx bxl-facebook icon"></i>
-            <i className="bx bxl-twitter icon"></i>
-            <i className="bx bxl-instagram icon"></i>
+            <Link target="blank" to="https://www.facebook.com/leanhduc151/">
+              <i className="bx bxl-facebook icon" />
+            </Link>
+            <Link target="blank" to="/">
+              <i className="bx bxl-twitter icon" />
+            </Link>
+            <Link
+              target="blank"
+              to="https://www.instagram.com/anhduc.151/?next=%2Fanhduc151%2F"
+            >
+              <i className="bx bxl-instagram icon" />
+            </Link>
           </div>
         </div>
       </div>
