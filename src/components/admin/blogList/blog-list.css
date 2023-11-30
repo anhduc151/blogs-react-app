@@ -52,7 +52,7 @@
   color: var(--body_color);
   font-weight: normal;
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* Số dòng tối đa */
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

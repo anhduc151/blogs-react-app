@@ -1,11 +1,133 @@
 /* css create */
 .create {
   padding: 100px 10%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .create_form {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+/* css upload image */
+.image-preview img {
+  width: 400px;
+  height: 350px;
+  object-fit: contain;
+}
+
+.file-input-container {
+  position: relative;
+  width: 200px;
+}
+
+.custom-file-input {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.custom-file-label {
+  display: inline-block;
+  width: auto;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: 2px solid #3498db;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-file-input:focus + .custom-file-label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.custom-file-label::after {
+  content: " No file chosen";
+}
+
+.custom-file-input:valid + .custom-file-label::after {
+  content: " " attr(data-file-name);
+}
+
+.custom-file-label:hover {
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+  color: #fff;
+}
+
+.image-preview-container {
+  margin-top: 20px;
+  position: relative;
+}
+
+.image-preview {
+  width: 400px;
+  height: 360px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #2147c7;
+}
+
+.image-preview-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  gap: 20px;
+  padding: 10px 0;
+  border: var(--box_border);
+  width: 150px;
+}
+
+.change-image-label {
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.trash {
+  color: rgb(214, 75, 75);
+  font-size: 28px;
+}
+
+.trash:hover {
+  cursor: pointer;
+  color: red;
+  transform: scale(1.3);
+  transition: 0.2s;
+}
+
+.change {
+  color: rgb(32, 228, 14);
+  font-size: 26px;
+}
+
+.change:hover {
+  cursor: pointer;
+  color: rgb(36, 110, 58);
+  transform: scale(1.3);
+  transition: 0.2s;
+}
+
+.btn-submit {
+  background-color: #3498db;
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 11px 19px;
+  border: none;
+  color: #fff;
+  width: 200px;
+}
+
+.btn-submit:hover {
+  cursor: pointer;
+  background-color: #148fe0;
 }

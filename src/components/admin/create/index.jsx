@@ -1,6 +1,6 @@
 import { app } from "../../../firebase";
 import React, { useEffect, useState } from "react";
-import { message } from "antd";
+import { Input, message } from "antd";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { storage } from "../../../firebase";
 import "./create.css";
@@ -22,10 +22,18 @@ const CreateBlog = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const navigate = useNavigate();
 
-  const deleteImage = () => {
-    setImageUpload(null);
-    setImageUrl(null);
+  const handleFileChange = (event) => {
+    setImageUpload(event.target.files[0]);
   };
+
+  const handleRemoveImage = () => {
+    setImageUpload(null);
+  };
+
+  // const deleteImage = () => {
+  //   setImageUpload(null);
+  //   setImageUrl(null);
+  // };
 
   const uploadImage = async () => {
     if (imageUpload == null) {
@@ -99,16 +107,50 @@ const CreateBlog = () => {
         >
           {!imageUrl && (
             <>
-              <input
+              {/* <input
                 type="file"
                 onChange={(event) => {
                   setImageUpload(event.target.files[0]);
                 }}
-              />
+              /> */}
+
+              <div className="file-input-container">
+                <input
+                  type="file"
+                  id="customFileInput"
+                  onChange={handleFileChange}
+                  className="custom-file-input"
+                />
+                <label htmlFor="customFileInput" className="custom-file-label">
+                  {imageUpload ? imageUpload.name : "Choose a file"}
+                </label>
+              </div>
+
+              {imageUpload && (
+                <div className="image-preview-container">
+                  <img
+                    src={URL.createObjectURL(imageUpload)}
+                    alt="Preview"
+                    className="image-preview"
+                  />
+                  <div className="image-preview-actions">
+                    <i
+                      onClick={handleRemoveImage}
+                      className="bx bxs-trash trash"
+                    ></i>
+                    <label
+                      htmlFor="customFileInput"
+                      className="change-image-label"
+                    >
+                      <i className="bx bx-rotate-right change"></i>
+                    </label>
+                  </div>
+                </div>
+              )}
             </>
           )}
 
-          {imageUrl ? (
+          {/* {imageUrl ? (
             <div className="image-preview">
               <img
                 src={imageUrl}
@@ -121,9 +163,9 @@ const CreateBlog = () => {
                 </button>
               </div>
             </div>
-          ) : null}
+          ) : null} */}
 
-          <input
+          {/* <input
             type="text"
             placeholder="Title"
             value={title}
@@ -131,6 +173,15 @@ const CreateBlog = () => {
               setTitle(e.target.value);
             }}
             required
+          /> */}
+
+          <Input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
           />
 
           {/* <textarea
@@ -153,7 +204,7 @@ const CreateBlog = () => {
             }}
           />
 
-          <button type="submit">Submit</button>
+          <button type="submit" className="btn-submit">Submit</button>
         </form>
       </div>
       <Footer />

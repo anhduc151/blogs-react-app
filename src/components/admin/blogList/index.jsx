@@ -89,7 +89,8 @@ const BlogListView = () => {
               Title: <span>{data.Title}</span>
             </p>
             <p className="blog_list_description">
-              Description: <span>{data.Body}</span>
+              Description:{" "}
+              <span dangerouslySetInnerHTML={{ __html: data.Body }} />
             </p>
             <div className="blog_list_button_edit">
               <Link to={`/detail-blog/${data.id}`} className="btn_view">

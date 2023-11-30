@@ -63,3 +63,8 @@ a {
 .anticon-left {
   color: rgb(0, 110, 255) !important;
 }
+
+.ql-toolbar.ql-snow {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
