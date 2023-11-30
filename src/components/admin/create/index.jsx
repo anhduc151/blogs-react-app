@@ -4,6 +4,7 @@ import { message } from "antd";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { storage } from "../../../firebase";
 import "./create.css";
+import { useNavigate } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import Navbar from "../../navbar";
@@ -17,8 +18,7 @@ const CreateBlog = () => {
   const [body, setBody] = useState("");
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
-  // const imageListRef = ref(storage, "images/");
+  const navigate = useNavigate();
 
   const deleteImage = () => {
     setImageUpload(null);
@@ -28,27 +28,23 @@ const CreateBlog = () => {
   const uploadImage = async () => {
     if (imageUpload == null) {
       message.error("Please upload an image");
-      return null; // Trả về null nếu không có ảnh
+      return null;
     }
 
     try {
-      // Upload image to storage
       const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
       await uploadBytes(imageRef, imageUpload);
 
-      // Get image URL
       const imageUrl = await getDownloadURL(imageRef);
       setImageUrl(imageUrl);
 
-      // Display success message
       message.success("Image uploaded successfully");
 
-      // Update state with the image URL
       return imageUrl;
     } catch (error) {
       console.error("Error uploading image:", error);
       message.error("Error uploading image. Please try again.");
-      return null; // Trả về null nếu có lỗi khi tải ảnh lên
+      return null;
     }
   };
 
@@ -58,12 +54,8 @@ const CreateBlog = () => {
     }
 
     try {
-      // Upload image
+      // Tải lên ảnh trước khi đăng blog
       const uploadedImageUrl = await uploadImage();
-      console.log(
-        "🚀 ~ file: index.jsx:56 ~ submit ~ uploadedImageUrl:",
-        uploadedImageUrl
-      );
 
       // Nếu có ảnh, thêm blog vào Firestore
       if (uploadedImageUrl) {
@@ -76,11 +68,12 @@ const CreateBlog = () => {
         // Hiển thị thông báo thành công
         message.success("Blog successfully created");
 
-        // clear form
+        // Clear form và state
         setTitle("");
         setBody("");
         setImageUpload(null);
-        setImageUrl(uploadedImageUrl); // Lưu URL của ảnh để hiển thị sau này
+        setImageUrl(null);
+        navigate("/")
       }
     } catch (error) {
       console.error("Error creating blog:", error);
@@ -102,7 +95,7 @@ const CreateBlog = () => {
             submit(event);
           }}
         >
-          {!imageUrl ? (
+          {!imageUrl && (
             <>
               <input
                 type="file"
@@ -110,11 +103,10 @@ const CreateBlog = () => {
                   setImageUpload(event.target.files[0]);
                 }}
               />
-              <button type="button" onClick={uploadImage}>
-                Upload Image
-              </button>
             </>
-          ) : (
+          )}
+
+          {imageUrl ? (
             <div className="image-preview">
               <img
                 src={imageUrl}
@@ -127,7 +119,7 @@ const CreateBlog = () => {
                 </button>
               </div>
             </div>
-          )}
+          ) : null}
 
           <input
             type="text"
