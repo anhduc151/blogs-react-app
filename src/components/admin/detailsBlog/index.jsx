@@ -37,7 +37,7 @@ const BlogView = () => {
     <div>
       <div className="details">
         <h1 className="details_h1">{blog.Title}</h1>
-        <p className="details_p">{blog.Body}</p>
+        <p className="details_p" dangerouslySetInnerHTML={{ __html: blog.Body }}></p>
       </div>
     </div>
   );

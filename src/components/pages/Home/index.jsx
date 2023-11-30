@@ -74,7 +74,7 @@ const Home = () => {
               </div>
               <div className="grid_box_foot">
                 <p className="grid_box_foot_titles">{data.Title}</p>
-                <p className="grid_box_foot_description">{data.Body}</p>
+                <p className="grid_box_foot_description" dangerouslySetInnerHTML={{ __html: data.Body }}></p>
               </div>
             </Link>
           ))}
