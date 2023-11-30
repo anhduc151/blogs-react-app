@@ -11,7 +11,6 @@ import Navbar from "../../navbar";
 import Footer from "../../footer";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import DOMPurify from "dompurify";
 
 const DB = getFirestore(app);
 const Blogslist = collection(DB, "blogs");
@@ -62,10 +61,9 @@ const CreateBlog = () => {
 
       // Nếu có ảnh, thêm blog vào Firestore
       if (uploadedImageUrl) {
-        const sanitizedBody = DOMPurify.sanitize(body);
         await addDoc(Blogslist, {
           Title: title,
-          Body: sanitizedBody,
+          Body: body,
           ImageUrl: uploadedImageUrl,
         });
 
@@ -84,60 +82,6 @@ const CreateBlog = () => {
       message.error("Error creating blog. Please try again.");
     }
   };
-
-
-  const toolbarOptions = [
-    ["bold", "italic", "underline", "strike"],
-    ["blockquote", "code-block"],
-    [{ header: 1 }, { header: 2 }],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ script: "sub" }, { script: "super" }],
-    [{ indent: "-1" }, { indent: "+1" }],
-    [{ direction: "rtl" }],
-    [{ size: ["small", false, "large", "huge"] }],
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    [{ color: [] }, { background: [] }],
-    [{ font: [] }],
-    [{ align: [] }],
-    ["clean"],
-  ];
-
-  const modules = {
-    toolbar: toolbarOptions,
-    clipboard: {
-      matchVisual: false,
-      matchers: [],
-    },
-    keyboard: {
-      bindings: {
-        enter: {
-          key: 13,
-          handler: function(range, context) {
-            return true;
-          },
-        },
-      },
-    },
-  };
-
-  const formats = [
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "code-block",
-    "header",
-    "list",
-    "script",
-    "indent",
-    "direction",
-    "size",
-    "color",
-    "background",
-    "font",
-    "align",
-  ];
 
   useEffect(() => {
     document.title = "Create Blog - Slurp";
@@ -207,9 +151,6 @@ const CreateBlog = () => {
             onChange={(value) => {
               setBody(value);
             }}
-            modules={modules}
-            formats={formats}
-            // required
           />
 
           <button type="submit">Submit</button>
