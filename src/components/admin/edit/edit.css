@@ -1,4 +1,14 @@
 /* css edit */
 .edit {
   padding: 100px 20%;
+  min-height: 100vh;
+}
+
+.edit_p {
+  margin-bottom: 8px;
+  font-size: 23px;
+}
+
+.edit_input {
+  margin-bottom: 20px;
 }

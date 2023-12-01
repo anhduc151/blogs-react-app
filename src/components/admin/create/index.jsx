@@ -69,10 +69,12 @@ const CreateBlog = () => {
 
       // Nếu có ảnh, thêm blog vào Firestore
       if (uploadedImageUrl) {
+        const imageId = v4();
         await addDoc(Blogslist, {
           Title: title,
           Body: body,
           ImageUrl: uploadedImageUrl,
+          ImageId: imageId,
         });
 
         // Hiển thị thông báo thành công

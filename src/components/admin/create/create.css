@@ -74,6 +74,7 @@
   object-fit: contain;
   border-radius: 10px;
   margin-bottom: 10px;
+  margin-top: 10px;
   border: 1px solid #2147c7;
 }
 
@@ -124,10 +125,30 @@
   padding: 11px 19px;
   border: none;
   color: #fff;
+  margin-top: 10px;
   width: 200px;
 }
 
 .btn-submit:hover {
   cursor: pointer;
   background-color: #148fe0;
+}
+
+@media screen and (max-width: 768px) {
+  .edit {
+    padding: 100px 5%;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-preview {
+    width: 250px;
+    height: 250px;
+  }
+
+  
 }
