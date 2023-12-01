@@ -1,14 +1,16 @@
 /* css home */
 .home {
   display: flex;
-  padding: 200px 10% 0;
+  width: 100%;
+  padding: 0px 10% 0;
   align-items: center;
-  /* height: 100vh; */
+  min-height: 100vh;
 }
 
 .home_left {
   position: relative;
   top: -120px;
+  width: 40%;
 }
 
 .home_leftt_box_h1 {
@@ -131,7 +133,7 @@
 
 @media screen and (max-width: 768px) {
   .home_left_h1 {
-    font-size: 80px;
+    font-size: 60px;
     margin-bottom: 16px;
   }
 
@@ -155,6 +157,14 @@
 
   .home_foot_pad {
     padding: 10px 5% 20px;
+  }
+
+  .home {
+    padding: 200px 5% 0;
+  }
+
+  .home_left {
+    width: 100%;
   }
 }
 

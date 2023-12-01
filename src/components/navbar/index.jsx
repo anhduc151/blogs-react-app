@@ -6,19 +6,38 @@ const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation(); // Lấy thông tin về URL hiện tại
   const [activePage, setActivePage] = useState("");
+  const [isNavVisible, setIsNavVisible] = useState(true);
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
 
+  const handleScroll = () => {
+    const scrolled = window.scrollY;
+
+    // Check the scroll direction
+    if (scrolled > 200 && isNavVisible) {
+      setIsNavVisible(false);
+    } else if (scrolled <= 200 && !isNavVisible) {
+      setIsNavVisible(true);
+    }
+  };
+
   useEffect(() => {
-    // Tìm trang active dựa trên pathname trong location
     const pathname = location.pathname;
     setActivePage(pathname);
-  }, [location]);
+
+    // Add scroll event listener when component mounts
+    window.addEventListener("scroll", handleScroll);
+
+    // Remove scroll event listener when component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [location, isNavVisible]);
 
   return (
-    <nav className="nav">
+    <nav className={`nav ${isNavVisible ? "nav_visible" : "nav_hidden"}`}>
       <div className="nav_icons">
         <div className="nav_logo">
           <Link to="/">
@@ -36,15 +55,35 @@ const Navbar = () => {
       </div>
 
       <ul className={`nav_links ${isNavOpen ? "nav_links_open" : ""}`}>
-        <li className={`nav_links_li ${activePage === "/create" ? "active" : ""}`}>
-          <Link to="/create">Create</Link>
-        </li>
-        <li className={`nav_links_li ${activePage === "/blog-list" ? "active" : ""}`}>
-          <Link to="/blog-list">List</Link>
-        </li>
-        <li className={`nav_links_li ${activePage === "/contact" ? "active" : ""}`}>
-          <Link to="/contact">Contact</Link>
-        </li>
+        <Link to="/create">
+          {" "}
+          <li
+            className={`nav_links_li ${
+              activePage === "/create" ? "active" : ""
+            }`}
+          >
+            Create
+          </li>
+        </Link>
+        <Link to="/blog-list">
+          {" "}
+          <li
+            className={`nav_links_li ${
+              activePage === "/blog-list" ? "active" : ""
+            }`}
+          >
+            List
+          </li>
+        </Link>
+        <Link to="/contact">
+          <li
+            className={`nav_links_li ${
+              activePage === "/contact" ? "active" : ""
+            }`}
+          >
+            Contact
+          </li>
+        </Link>
       </ul>
     </nav>
   );

@@ -1,6 +1,7 @@
 /* css details */
 .details {
   padding: 100px 20%;
+  min-height: 100vh;
 }
 
 .details_h1 {

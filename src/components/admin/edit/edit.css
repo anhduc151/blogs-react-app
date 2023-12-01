@@ -12,3 +12,13 @@
 .edit_input {
   margin-bottom: 20px;
 }
+
+@media screen and (max-width: 768px) {
+  .edit {
+    padding: 100px 5%;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+}

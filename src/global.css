@@ -8,7 +8,7 @@
 
 :root {
   --body_background_light: white;
-  --body_color_light: #000;
+  --body_color_light: #000000;
   --link_color_light: navy;
   --body_shadow_light: 0px 20px 32px -8px rgba(0, 0, 0, 0.2);
   --background_gradient_light: linear-gradient(to right, #71afe5, #e9dede);
@@ -44,6 +44,12 @@ body {
   font-family: "Roboto";
   background-color: var(--body_background);
   color: var(--body_color);
+}
+
+body {
+  background-image: url("../src/assets/images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 a {

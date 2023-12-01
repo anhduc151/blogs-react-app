@@ -2,22 +2,11 @@ import { Input, message } from "antd";
 import { app } from "../../../firebase";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  updateDoc,
-  collection,
-} from "firebase/firestore";
+import { getFirestore, doc, getDoc, updateDoc, collection } from "firebase/firestore";
 import "./edit.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import {
-  getStorage,
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import Navbar from "../../navbar";
 import Footer from "../../footer";
 
@@ -88,17 +77,18 @@ const BlogEdit = () => {
     e.preventDefault();
     try {
       const uploadedImageUrl = await uploadImage();
-
+  
       const docRef = doc(Blogslist, id);
       await updateDoc(docRef, {
         Title: title,
         Body: body,
         ImageUrl: uploadedImageUrl || imageUrl,
       });
-
+  
       message.success("Data successfully submitted");
     } catch (error) {
       console.error("Error updating document:", error);
+      message.error("Error updating document. Please try again.");
     }
   };
 
