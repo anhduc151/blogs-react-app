@@ -1,7 +1,8 @@
 /* css footer */
 .footer {
   display: grid;
-  background-color: #524a4a;
+  border-top: 1px solid var(--body_color);
+  background-color: transparent;
   padding: 3% 50px;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -65,7 +66,7 @@
 
 .icon {
   font-size: 28px;
-  color: #fff;
+  color: var(--body_color);
 }
 
 .icon:hover {

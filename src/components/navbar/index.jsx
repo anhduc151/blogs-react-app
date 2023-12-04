@@ -4,24 +4,32 @@ import "./navbar.css";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const location = useLocation(); // Lấy thông tin về URL hiện tại
+  const location = useLocation();
   const [activePage, setActivePage] = useState("");
   const [isNavVisible, setIsNavVisible] = useState(true);
+  const [previousScroll, setPreviousScroll] = useState(0);
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
 
   const handleScroll = () => {
-    const scrolled = window.scrollY;
+    const currentScrollPos = window.scrollY;
+    const isScrolledDown = currentScrollPos > previousScroll;
 
     // Check the scroll direction
-    if (scrolled > 200 && isNavVisible) {
+    if (isScrolledDown && currentScrollPos > 200) {
       setIsNavVisible(false);
-    } else if (scrolled <= 200 && !isNavVisible) {
+    } else {
       setIsNavVisible(true);
     }
+
+    setPreviousScroll(currentScrollPos);
   };
+
+  useEffect(() => {
+    setPreviousScroll(window.scrollY);
+  }, []);
 
   useEffect(() => {
     const pathname = location.pathname;
@@ -34,7 +42,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location, isNavVisible]);
+  }, [location, isNavVisible, previousScroll]);
 
   return (
     <nav className={`nav ${isNavVisible ? "nav_visible" : "nav_hidden"}`}>

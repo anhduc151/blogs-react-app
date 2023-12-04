@@ -172,4 +172,8 @@
   .home_right_imgs {
     display: none;
   }
+
+  .home {
+    padding: 100px 5% 0;
+  }
 }
