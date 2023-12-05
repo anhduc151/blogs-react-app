@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./contact.css";
-import Navbar from "../../navbar";
-import Footer from "../../footer";
+// import Navbar from "../../navbar";
+// import Footer from "../../footer";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 import { app } from "../../../firebase";
 import { Link } from "react-router-dom";
@@ -31,7 +31,7 @@ const Contact = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="home_foot_pad">
         <h2 className="home_foot_pad_h2">All Blogs</h2>
 
@@ -56,7 +56,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

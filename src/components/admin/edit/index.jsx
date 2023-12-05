@@ -7,8 +7,6 @@ import "./edit.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
-import Navbar from "../../navbar";
-import Footer from "../../footer";
 
 const DB = getFirestore(app);
 const Blogslist = collection(DB, "blogs");
@@ -94,7 +92,6 @@ const BlogEdit = () => {
 
   return (
     <>
-      <Navbar />
       <div className="edit">
         <form
           onSubmit={(event) => {
@@ -146,7 +143,6 @@ const BlogEdit = () => {
           <button type="submit" className="btn-submit">Submit</button>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

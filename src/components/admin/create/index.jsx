@@ -7,8 +7,6 @@ import "./create.css";
 import { useNavigate } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
-import Navbar from "../../navbar";
-import Footer from "../../footer";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -99,7 +97,6 @@ const CreateBlog = () => {
 
   return (
     <>
-      <Navbar />
       <div className="create">
         <form
           className="create_form"
@@ -209,7 +206,6 @@ const CreateBlog = () => {
           <button type="submit" className="btn-submit">Submit</button>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

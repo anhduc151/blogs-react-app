@@ -3,8 +3,6 @@ import "./detail-blog.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
-import Navbar from "../../navbar";
-import Footer from "../../footer";
 
 const DB = getFirestore(app);
 const Blogslist = collection(DB, "blogs");
@@ -37,12 +35,10 @@ const BlogView = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="details">
         <h1 className="details_h1">{blog.Title}</h1>
         <p className="details_p" dangerouslySetInnerHTML={{ __html: blog.Body }}></p>
       </div>
-      <Footer />
     </div>
   );
 };

@@ -9,9 +9,7 @@ import {
   onSnapshot,
   deleteDoc,
 } from "firebase/firestore";
-import Navbar from "../../navbar";
 import "./blog-list.css";
-import Footer from "../../footer";
 
 const DB = getFirestore(app);
 
@@ -75,7 +73,6 @@ const BlogListView = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="blog_list">
         <Input
           placeholder="Search title"
@@ -120,7 +117,6 @@ const BlogListView = () => {
           />
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

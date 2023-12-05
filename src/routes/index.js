@@ -6,16 +6,18 @@ import BlogEdit from "../components/admin/edit";
 import SignIn from "../components/auth/SignIn";
 import SignUp from "../components/auth/SignUp";
 import Contact from "../components/pages/contact/index";
+import Navbar from "../components/navbar";
+import Footer from "../components/footer";
 
 const publicRoutes = [
-  { path: "/", component: Home },
-  { path: "/create", component: CreateBlog },
-  { path: "/edit/:id", component: BlogEdit },
-  { path: "/detail-blog/:id", component: BlogView },
-  { path: "/blog-list", component: BlogListView },
-  { path: "/sign-in", component: SignIn },
-  { path: "/sign-up", component: SignUp },
-  { path: "/contact", component: Contact },
+  { path: "/", component: Home, layout: null },
+  { path: "/create", component: CreateBlog, layout: null },
+  { path: "/edit/:id", component: BlogEdit, layout: null },
+  { path: "/detail-blog/:id", component: BlogView, layout: null },
+  { path: "/blog-list", component: BlogListView, layout: null },
+  { path: "/sign-in", component: SignIn, layout: null },
+  { path: "/sign-up", component: SignUp, layout: null },
+  { path: "/contact", component: Contact, layout: null },
 ];
 
 const privateRoutes = [];
