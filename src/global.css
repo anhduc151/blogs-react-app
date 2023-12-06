@@ -13,6 +13,7 @@
   --body_shadow_light: 0px 20px 32px -8px rgba(0, 0, 0, 0.2);
   --background_gradient_light: linear-gradient(to right, #71afe5, #e9dede);
   --box_border_light: 1px solid #b6acac;
+  --placeholder_color_light: #1a1818;
 
   --body_background_dark: #000000;
   --body_color_dark: white;
@@ -20,6 +21,7 @@
   --body_shadow_dark: 0px 20px 32px -8px rgba(255, 255, 255, 0.821);
   --background_gradient_dark: linear-gradient(45deg, #000000, #434747);
   --box_border_dark: 1px solid #545252;
+  --placeholder_color_dark: #a69f9f;
 }
 
 [data-theme="dark"] {
@@ -29,6 +31,7 @@
   --button_shadow: var(--body_shadow_dark);
   --background_signin: var(--background_gradient_dark);
   --box_border: var(--box_border_dark);
+  --placeholder_color: var(--placeholder_color_dark);
 }
 
 [data-theme="light"] {
@@ -38,6 +41,7 @@
   --button_shadow: var(--body_shadow_light);
   --background_signin: var(--background_gradient_light);
   --box_border: var(--box_border_light);
+  --placeholder_color: var(--placeholder_color_light);
 }
 
 body {

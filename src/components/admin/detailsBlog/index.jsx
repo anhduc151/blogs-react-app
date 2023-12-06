@@ -15,6 +15,9 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 const DB = getFirestore(app);
 const Blogslist = collection(DB, "blogs");
 
@@ -46,7 +49,10 @@ const BlogView = () => {
           orderBy("timestamp", "desc")
         );
         const querySnapshot = await getDocs(commentsQuery);
-        const commentsData = querySnapshot.docs.map((doc) => doc.data());
+        const commentsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setComments(commentsData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -58,21 +64,25 @@ const BlogView = () => {
 
   const addComment = async () => {
     try {
-      const author = commentAuthor || "Anonymous"; // Sử dụng commentAuthor nếu có, nếu không thì sử dụng "Anonymous"
-  
+      const author = commentAuthor || "Anonymous";
+
+      const avatar =
+        "https://secure.gravatar.com/avatar/99d2389865f459916f961890c7946abb?s=64&d=identicon&r=g";
+
       const commentData = {
         content: newComment,
         author: author,
+        avatar: avatar,
         timestamp: new Date(),
         blogId: id,
       };
-  
+
       // Add comment to Firestore
       const docRef = await addDoc(collection(DB, "comments"), commentData);
-  
+
       // Lấy id của comment từ kết quả trả về
       const commentWithId = { id: docRef.id, ...commentData };
-  
+
       // Update local state with new comment
       setComments((prevComments) => [commentWithId, ...prevComments]);
       setNewComment("");
@@ -82,17 +92,19 @@ const BlogView = () => {
     }
   };
 
-  const deleteComment = async (commentId) => {
-    try {
-      // Xoá bình luận từ Firestore
-      await deleteDoc(doc(DB, "comments", commentId));
-  
-      // Cập nhật trạng thái local bằng cách lọc bỏ bình luận đã xoá
-      setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
-    } catch (error) {
-      console.error("Error deleting comment:", error);
-    }
-  };
+  // const deleteComment = async (commentId) => {
+  //   try {
+  //     // Xoá bình luận từ Firestore
+  //     await deleteDoc(doc(DB, "comments", commentId));
+
+  //     // Cập nhật trạng thái local bằng cách lọc bỏ bình luận đã xoá
+  //     setComments((prevComments) =>
+  //       prevComments.filter((comment) => comment.id !== commentId)
+  //     );
+  //   } catch (error) {
+  //     console.error("Error deleting comment:", error);
+  //   }
+  // };
 
   return (
     <div>
@@ -102,31 +114,58 @@ const BlogView = () => {
           className="details_p"
           dangerouslySetInnerHTML={{ __html: blog.Body }}
         ></p>
-      </div>
-      <div className="comment-section">
-        <h2>Comments</h2>
-        <div className="comments-list">
-          {comments.map((comment, index) => (
-            <div key={index} className="comment">
-              <p>{comment.content}</p>
-              <span>By {comment.author}</span>
-              <button onClick={() => deleteComment(comment.id)}>Delete</button>
-            </div>
-          ))}
-        </div>
-        <div className="add-comment">
-          <input
-            type="text"
-            placeholder="Your name"
-            value={commentAuthor}
-            onChange={(e) => setCommentAuthor(e.target.value)}
-          />
-          <textarea
-            placeholder="Add a comment..."
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-          />
-          <button onClick={addComment}>Add Comment</button>
+
+        <div className="comment_section">
+          <div className="add_comment">
+            {/* <textarea
+              placeholder="Add a comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            /> */}
+
+            <ReactQuill
+              theme="snow"
+              placeholder="Please input your comment ..."
+              value={newComment}
+              onChange={(newComment) => {
+                setNewComment(newComment);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Your name"
+              className="add_comment_input"
+              value={commentAuthor}
+              onChange={(e) => setCommentAuthor(e.target.value)}
+            />
+            <button onClick={addComment} className="add_comment_btn">Add Comment</button>
+          </div>
+
+          <div className="comments_list">
+            {comments.map((comment, index) => (
+              <div key={index} className="comment">
+                <div className="comment_box">
+                  <div className="comment_box_left">
+                    <img
+                      src={comment.avatar}
+                      alt={`${comment.author}'s avatar`}
+                      className="comment_imgs"
+                    />
+                  </div>
+
+                  <div className="comment_box_right">
+                    <span className="comment_box_right_authur">
+                      {comment.author}
+                    </span>
+                    <p dangerouslySetInnerHTML={{ __html: comment.content }} />
+                  </div>
+                </div>
+                {/* <button onClick={() => deleteComment(comment.id)}>
+                  Delete
+                </button> */}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
