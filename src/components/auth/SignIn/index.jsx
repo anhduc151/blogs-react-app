@@ -35,7 +35,7 @@ const SignIn = () => {
   return (
     <div className="sign_in">
       <Link to="/">
-        <h1 className="sign_in_logo">Slurp</h1>
+        {/* <h1 className="sign_in_logo">Slurp</h1> */}
       </Link>
       <form onSubmit={signIn} className="sign_in_form">
         <h2 className="sign_in_signin">Sign In</h2>

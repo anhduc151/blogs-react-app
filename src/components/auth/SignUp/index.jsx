@@ -48,7 +48,7 @@ const SignUp = () => {
         <button>Sign Up</button>
       </form> */}
       <Link to="/">
-        <h1 className="sign_in_logo">Slurp</h1>
+        {/* <h1 className="sign_in_logo">Slurp</h1> */}
       </Link>
       <form onSubmit={handleSignUp} className="sign_in_form">
         <h2 className="sign_in_signin">Sign Up</h2>
