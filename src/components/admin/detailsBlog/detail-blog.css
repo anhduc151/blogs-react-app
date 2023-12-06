@@ -64,6 +64,7 @@
   border: var(--box_border);
   margin-top: 10px;
   margin-right: 10px;
+  color: var(--body_color);
 }
 
 .add_comment_btn {
