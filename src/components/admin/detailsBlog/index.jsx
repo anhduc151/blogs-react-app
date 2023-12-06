@@ -62,12 +62,26 @@ const BlogView = () => {
     fetchData();
   }, [id]);
 
+  const handleRandomAvatar = () => {
+    const avatarUrls = [
+      "https://secure.gravatar.com/avatar/99d2389865f459916f961890c7946abb?s=64&d=identicon&r=g",
+      "https://secure.gravatar.com/avatar/9853e0f8ebe61e512b35a2bdfeee9859?s=56&d=identicon&r=g",
+      "https://secure.gravatar.com/avatar/fd4e7be5050ffa5516246558a7939f85?s=64&d=identicon&r=g",
+      "https://secure.gravatar.com/avatar/05d992e5e8473d2bb5c7536335325b88?s=64&d=identicon&r=g",
+      "https://secure.gravatar.com/avatar/a8f6f5f12d7da8fdf2fa24ac692ea136?s=56&d=identicon&r=g",
+      "https://secure.gravatar.com/avatar/05d992e5e8473d2bb5c7536335325b88?s=64&d=identicon&r=g",
+      "https://secure.gravatar.com/avatar/65e199a07a604eed244d5ac924db86b9?s=64&d=identicon&r=g",
+    ];
+
+    const randomIndex = Math.floor(Math.random() * avatarUrls.length);
+    return avatarUrls[randomIndex];
+  };
+
   const addComment = async () => {
     try {
       const author = commentAuthor || "Anonymous";
 
-      const avatar =
-        "https://secure.gravatar.com/avatar/99d2389865f459916f961890c7946abb?s=64&d=identicon&r=g";
+      const avatar = handleRandomAvatar();
 
       const commentData = {
         content: newComment,
@@ -138,7 +152,9 @@ const BlogView = () => {
               value={commentAuthor}
               onChange={(e) => setCommentAuthor(e.target.value)}
             />
-            <button onClick={addComment} className="add_comment_btn">Add Comment</button>
+            <button onClick={addComment} className="add_comment_btn">
+              Add Comment
+            </button>
           </div>
 
           <div className="comments_list">
