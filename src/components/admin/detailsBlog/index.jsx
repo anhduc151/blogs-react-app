@@ -1,4 +1,4 @@
-import { app, auth } from "../../../firebase";
+import { app } from "../../../firebase";
 import "./detail-blog.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -27,6 +27,9 @@ const BlogView = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [commentAuthor, setCommentAuthor] = useState("");
+  const [replyTo, setReplyTo] = useState(null);
+  const [newReply, setNewReply] = useState("");
+  const [replyAuthor, setReplyAuthor] = useState("");
 
   useEffect(() => {
     document.title = "Details Blog - Slurp";
@@ -80,45 +83,82 @@ const BlogView = () => {
   const addComment = async () => {
     try {
       const author = commentAuthor || "Anonymous";
-
       const avatar = handleRandomAvatar();
 
-      const commentData = {
-        content: newComment,
-        author: author,
-        avatar: avatar,
-        timestamp: new Date(),
-        blogId: id,
-      };
+      if (replyTo === null) {
+        // Thêm comment
+        const commentData = {
+          content: newComment,
+          author: author,
+          avatar: avatar,
+          timestamp: new Date(),
+          blogId: id,
+        };
 
-      // Add comment to Firestore
-      const docRef = await addDoc(collection(DB, "comments"), commentData);
+        const docRef = await addDoc(collection(DB, "comments"), commentData);
+        const commentWithId = { id: docRef.id, ...commentData };
 
-      // Lấy id của comment từ kết quả trả về
-      const commentWithId = { id: docRef.id, ...commentData };
+        setComments((prevComments) => [commentWithId, ...prevComments]);
+        setNewComment("");
+        setCommentAuthor("");
+      } else {
+        // Thêm reply
+        const replyData = {
+          content: newReply,
+          author: replyAuthor || "Anonymous",
+          avatar: avatar,
+          timestamp: new Date(),
+          blogId: id,
+          parentId: replyTo,
+        };
 
-      // Update local state with new comment
-      setComments((prevComments) => [commentWithId, ...prevComments]);
-      setNewComment("");
-      setCommentAuthor(""); // Reset trường nhập tên
+        const docRef = await addDoc(collection(DB, "comments"), replyData);
+        const replyWithId = { id: docRef.id, ...replyData };
+
+        setComments((prevComments) => {
+          // Tìm comment cần thêm reply
+          const updatedComments = prevComments.map((comment) =>
+            comment.id === replyTo
+              ? {
+                  ...comment,
+                  replies: Array.isArray(comment.replies)
+                    ? [replyWithId, ...comment.replies]
+                    : [replyWithId],
+                }
+              : comment
+          );
+
+          // Nếu comment không tồn tại trong danh sách cũ, thêm vào cuối danh sách
+          if (!updatedComments.some((comment) => comment.id === replyTo)) {
+            updatedComments.push(replyWithId);
+          }
+
+          return updatedComments;
+        });
+
+        setNewReply("");
+        setReplyAuthor("");
+      }
+
+      setReplyTo(null);
     } catch (error) {
-      console.error("Error adding comment:", error);
+      console.error("Error adding comment or reply:", error);
     }
   };
 
-  // const deleteComment = async (commentId) => {
-  //   try {
-  //     // Xoá bình luận từ Firestore
-  //     await deleteDoc(doc(DB, "comments", commentId));
+  const deleteComment = async (commentId) => {
+    try {
+      // Xoá bình luận từ Firestore
+      await deleteDoc(doc(DB, "comments", commentId));
 
-  //     // Cập nhật trạng thái local bằng cách lọc bỏ bình luận đã xoá
-  //     setComments((prevComments) =>
-  //       prevComments.filter((comment) => comment.id !== commentId)
-  //     );
-  //   } catch (error) {
-  //     console.error("Error deleting comment:", error);
-  //   }
-  // };
+      // Cập nhật trạng thái local bằng cách lọc bỏ bình luận đã xoá
+      setComments((prevComments) =>
+        prevComments.filter((comment) => comment.id !== commentId)
+      );
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
 
   return (
     <div>
@@ -136,13 +176,12 @@ const BlogView = () => {
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             /> */}
-
             <ReactQuill
               theme="snow"
               placeholder="Please input your comment ..."
-              value={newComment}
-              onChange={(newComment) => {
-                setNewComment(newComment);
+              value={replyTo === null ? newComment : newReply}
+              onChange={(text) => {
+                replyTo === null ? setNewComment(text) : setNewReply(text);
               }}
             />
             <input
@@ -153,7 +192,7 @@ const BlogView = () => {
               onChange={(e) => setCommentAuthor(e.target.value)}
             />
             <button onClick={addComment} className="add_comment_btn">
-              Add Comment
+              {replyTo === null ? "Add Comment" : "Add Reply"}
             </button>
           </div>
 
@@ -168,17 +207,75 @@ const BlogView = () => {
                       className="comment_imgs"
                     />
                   </div>
-
                   <div className="comment_box_right">
                     <span className="comment_box_right_authur">
                       {comment.author}
                     </span>
                     <p dangerouslySetInnerHTML={{ __html: comment.content }} />
+                    {/* <button onClick={() => setReplyTo(comment.id)}>
+                      Reply
+                    </button> */}
+                    <i className='bx bx-reply' onClick={() => setReplyTo(comment.id)}></i>
+                    {replyTo === comment.id && (
+                      <div className="reply_form">
+                        <ReactQuill
+                          theme="snow"
+                          placeholder="Please input your comment ..."
+                          value={replyTo === null ? newComment : newReply}
+                          onChange={(text) => {
+                            replyTo === null
+                              ? setNewComment(text)
+                              : setNewReply(text);
+                          }}
+                        />
+                        <input
+                          type="text"
+                          placeholder="Your name"
+                          className="add_comment_input"
+                          value={replyTo === null ? commentAuthor : replyAuthor} 
+                          onChange={(e) =>
+                            replyTo === null
+                              ? setCommentAuthor(e.target.value)
+                              : setReplyAuthor(e.target.value)
+                          }
+                        />
+                        <button
+                          onClick={addComment}
+                          className="add_comment_btn"
+                        >
+                          {replyTo === null ? "Add Comment" : "Add Reply"}
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Hiển thị replies */}
+                    {Array.isArray(comment.replies) &&
+                      comment.replies.map((reply, idx) => (
+                        <div key={idx} className="comment_reply">
+                          <div className="comment_box_left">
+                            <img
+                              src={reply.avatar}
+                              alt={`${reply.author}'s avatar`}
+                              className="comment_imgs"
+                            />
+                          </div>
+                          <div className="comment_box_right">
+                            <span className="comment_box_right_authur">
+                              {reply.author}
+                            </span>
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: reply.content,
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
-                {/* <button onClick={() => deleteComment(comment.id)}>
+                <button onClick={() => deleteComment(comment.id)}>
                   Delete
-                </button> */}
+                </button>
               </div>
             ))}
           </div>

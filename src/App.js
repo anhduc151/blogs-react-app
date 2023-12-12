@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import DarkMode from "./components/DarkMode";
 import DefaultLayout from "./layout/DefaultLayout";
-import Navbar from "./components/navbar";
-import Footer from "./components/footer";
 
 function App() {
   return (
@@ -36,9 +34,7 @@ function App() {
                 // element={<Page />}
                 element={
                   <Layout>
-                    <Navbar />
                     <Page />
-                    <Footer />
                   </Layout>
                 }
               ></Route>
