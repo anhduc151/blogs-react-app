@@ -6,6 +6,7 @@ import BlogEdit from "../components/admin/edit";
 import SignIn from "../components/auth/SignIn";
 import SignUp from "../components/auth/SignUp";
 import Contact from "../components/pages/contact/index";
+import About from "../components/pages/About";
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -16,6 +17,7 @@ const publicRoutes = [
   { path: "/sign-in", component: SignIn, layout: null },
   { path: "/sign-up", component: SignUp, layout: null },
   { path: "/contact", component: Contact },
+  { path: "/about", component: About, layout: null },
 ];
 
 const privateRoutes = [];
