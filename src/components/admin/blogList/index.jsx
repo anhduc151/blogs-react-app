@@ -11,7 +11,9 @@ import {
 } from "firebase/firestore";
 import "./blog-list.css";
 
+// const DB = getFirestore(app);
 const DB = getFirestore(app);
+
 
 const Blogslist = collection(DB, "blogs"); // Use 'collection' directly
 
