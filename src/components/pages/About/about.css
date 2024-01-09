@@ -1,0 +1,35 @@
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.about_icons {
+  border: 1px solid #fff;
+}
+
+.hover:hover {
+    cursor: pointer;
+}
+
+.about_icons {
+    position: relative;
+    display: inline-block;
+  }
+
+  .about_icons:hover::after {
+    content: "bolllon";
+    position: absolute;
+    top: 0;
+    left: 100%;
+    padding: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .hover:hover::after {
+    content: "Hovered!";
+  }
