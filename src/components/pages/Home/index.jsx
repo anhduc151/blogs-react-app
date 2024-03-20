@@ -5,8 +5,6 @@ import "./home.css";
 import { Link } from "react-router-dom";
 import { app } from "../../../firebase";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
-// import Navbar from "../../navbar";
-// import Footer from "../../footer";
 
 const DB = getFirestore(app);
 const Blogslist = collection(DB, "blogs");
@@ -32,7 +30,6 @@ const Home = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
       <div className="home">
         <div className="home_left">
           <div className="home_leftt_box_h1">
@@ -56,7 +53,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Home Foot */}
       <div className="home_foot_pad">
         <h2 className="home_foot_pad_h2">Most Viewed</h2>
 
@@ -74,13 +70,15 @@ const Home = () => {
               </div>
               <div className="grid_box_foot">
                 <p className="grid_box_foot_titles">{data.Title}</p>
-                <p className="grid_box_foot_description" dangerouslySetInnerHTML={{ __html: data.Body }}></p>
+                <p
+                  className="grid_box_foot_description"
+                  dangerouslySetInnerHTML={{ __html: data.Body }}
+                ></p>
               </div>
             </Link>
           ))}
         </div>
       </div>
-      {/* <Footer /> */}
     </>
   );
 };
